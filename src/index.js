@@ -1,6 +1,6 @@
 'use strict';
 
-function Modal(clickElm, modalParent, options) {
+function PaymentsClient(clickElm, modalParent, options) {
   options = options || {};
 
   var that = this;
@@ -19,7 +19,7 @@ function Modal(clickElm, modalParent, options) {
   return this;
 }
 
-Modal.prototype = {
+PaymentsClient.prototype = {
   iframeSrc: 'http://pay.dev:8000/',
   classPrefix: 'fxa-pay',
 
@@ -159,4 +159,4 @@ Modal.prototype = {
   },
 };
 
-module.exports = Modal;
+module.exports = PaymentsClient;
