@@ -1,0 +1,8 @@
+test/
+Gruntfile.js
+.travis.yml
+.gitignore
+.eslintrc
+.eslintignore
+bower.json
+.npmignore
