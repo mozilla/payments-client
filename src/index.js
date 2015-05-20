@@ -21,7 +21,7 @@ function Modal(clickElm, modalParent, options) {
 
 Modal.prototype = {
   iframeSrc: 'http://pay.dev:8000/',
-  classPrefix: 'mozpay',
+  classPrefix: 'fxa-pay',
 
   prefix: function(str) {
     return this.classPrefix + '-' + str;
