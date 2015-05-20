@@ -28,7 +28,7 @@ Modal.prototype = {
   },
 
   getStyle: function (elm, prop) {
-    if (getComputedStyle !== 'undefined') {
+    if (typeof getComputedStyle !== 'undefined') {
       return getComputedStyle(elm, null).getPropertyValue(prop);
     } else {
       return elm.currentStyle[prop];
