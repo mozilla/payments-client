@@ -11,5 +11,5 @@ module.exports = function(grunt) {
   });
 
   grunt.initConfig(configs);
-  grunt.registerTask('test', ['karma:run', 'eslint']);
+  grunt.registerTask('test', ['webpack:dist', 'karma:run', 'eslint']);
 };
