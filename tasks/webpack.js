@@ -5,7 +5,7 @@ var webpackConfig = require('../webpack.config.js');
 module.exports = {
   options: webpackConfig,
   // Target
-  client: {
+  dist: {
     stats: {
       // Configure the console output
       colors: true,
