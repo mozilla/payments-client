@@ -17,4 +17,9 @@ module.exports = {
           },
       }),
   ],
+  resolve: {
+    extensions: ['', '.js'],
+    modulesDirectories: ['src'],
+  },
+
 };
