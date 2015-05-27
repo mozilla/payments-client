@@ -1,26 +1,47 @@
 'use strict';
 
-function PaymentsClient(clickElm, modalParent, options) {
-  options = options || {};
+var utils = require('utils');
 
-  var that = this;
-  clickElm.addEventListener('click', function(e) {
-    e.preventDefault();
-    that.show();
-  }, false);
-  this.clickElm = clickElm;
-  this.modalParent = modalParent || document.documentElement;
+function PaymentsClient(config) {
+  config = config || {};
+
+  this.modalParent = config.modalParent || document.documentElement;
   // Create a unique instance id.
   this.id = '_' + Math.random().toString(36).substr(2, 9);
-  this.modalWidth = options.modalWidth || 300;
-  this.modalHeight = options.modalHeight || 500;
-  this.closeDelayMs = typeof options.closeDelayMs === 'number' ?
-                        options.closeDelayMs : 300;
+  this.modalWidth = config.modalWidth || 300;
+  this.modalHeight = config.modalHeight || 500;
+  this.closeDelayMs = typeof config.closeDelayMs === 'number' ?
+                        config.closeDelayMs : 300;
+  this.accessToken = config.accessToken;
+  this.product = config.product;
+  this.paymentHost = config.paymentHost || 'http://pay.dev:8000/';
+  this.httpsOnly =
+    typeof config.httpsOnly === 'undefined' ? true : config.httpsOnly;
+
+  var paymentHostProtocol = utils.getProtocol(this.paymentHost);
+  if (this.httpsOnly === true && paymentHostProtocol !== 'https:') {
+    throw new Error('paymentHost is not https');
+  }
+
+  if (paymentHostProtocol !== 'http:' && paymentHostProtocol !== 'https:') {
+    throw new Error('paymentHost must be http or https');
+  }
+
+  if (typeof this.product !== 'string') {
+    throw new Error('A \'product\' string must be provided');
+  }
+
+  if (typeof this.accessToken !== 'string') {
+    throw new Error('An \'accessToken\' string must be provided');
+  }
+
+  if (this.httpsOnly === false) {
+    console.warn('httpsOnly is set to false. Only use for dev');
+  }
   return this;
 }
 
 PaymentsClient.prototype = {
-  iframeSrc: 'http://pay.dev:8000/',
   classPrefix: 'fxa-pay',
 
   prefix: function(str) {
@@ -126,7 +147,11 @@ PaymentsClient.prototype = {
     inner.appendChild(closeButton);
 
     var iframe_ = doc.createElement('iframe');
-    iframe_.setAttribute('src', this.iframeSrc);
+    var iframeSrc = utils.buildIframeSrc(this.paymentHost, {
+      access_token: this.accessToken,
+      product: this.product,
+    });
+    iframe_.setAttribute('src', iframeSrc);
     inner.appendChild(iframe_);
 
     this.applyStyles(iframe_, this.iframeStyle);

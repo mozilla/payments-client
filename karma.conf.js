@@ -20,7 +20,7 @@ module.exports = function (config) {
     webpack: {
      resolve: {
         extensions: ['', '.js'],
-        modulesDirectories: ['dist', 'tests', 'node_modules'],
+        modulesDirectories: ['dist', 'src', 'tests', 'node_modules'],
       },
     },
     webpackServer: {
