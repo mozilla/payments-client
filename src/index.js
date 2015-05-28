@@ -8,8 +8,8 @@ function PaymentsClient(config) {
   this.modalParent = config.modalParent || document.documentElement;
   // Create a unique instance id.
   this.id = '_' + Math.random().toString(36).substr(2, 9);
-  this.modalWidth = config.modalWidth || 300;
-  this.modalHeight = config.modalHeight || 500;
+  this.modalWidth = config.modalWidth || 318;
+  this.modalHeight = config.modalHeight || 468;
   this.closeDelayMs = typeof config.closeDelayMs === 'number' ?
                         config.closeDelayMs : 300;
   this.accessToken = config.accessToken;
@@ -97,7 +97,8 @@ PaymentsClient.prototype = {
       backgroundColor: '#fff',
       marginTop: '-' + that.modalHeight / 2 + 'px',
       marginLeft: '-' + that.modalWidth / 2 + 'px',
-      border: '1px solid #666',
+      border: '1px solid #C3CFD8',
+      borderRadius: '2px',
       boxShadow: '0 3px 7px rgba(0, 0, 0, 0.5)',
       zIndex: 2010,
       transition: 'opacity 0.3s',
