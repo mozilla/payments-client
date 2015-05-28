@@ -95,7 +95,7 @@ PaymentsClient.prototype = {
       height: that.modalHeight + 'px',
       width: that.modalWidth + 'px',
       backgroundColor: '#fff',
-      marginTop: '-' + that.modalHeighto / 2 + 'px',
+      marginTop: '-' + that.modalHeight / 2 + 'px',
       marginLeft: '-' + that.modalWidth / 2 + 'px',
       border: '1px solid #666',
       boxShadow: '0 3px 7px rgba(0, 0, 0, 0.5)',
@@ -179,7 +179,7 @@ PaymentsClient.prototype = {
     this.modal._inner.style.opacity = 0;
     var that = this;
     window.setTimeout(function(){
-      that.modalParent.innerHTML = '';
+      that.modal.parentNode.removeChild(that.modal);
     }, this.closeDelayMs);
   },
 };
