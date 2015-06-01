@@ -4,7 +4,8 @@
   "description": "Modal window JS client for mozilla/payments",
   "main": "dist/moz-payments-client.js",
   "scripts": {
-    "test": "node -e \"require('grunt').cli()\" null test"
+    "test": "node -e \"require('grunt').cli()\" null test",
+    "publish-release": "node -e \"require('grunt').cli()\" null build publish-release"
   },
   "keywords": [
     "js",
