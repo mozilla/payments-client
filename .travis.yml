@@ -1,15 +1,21 @@
 language: node_js
 sudo: false
 node_js:
-  - 0.10
+- '0.10'
 before_script:
-  - npm rebuild
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+- npm rebuild
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 script: npm test
+after_success: npm run-script publish-release > /dev/null 2>&1
 notifications:
   irc:
     channels:
-      - "irc.mozilla.org#payments"
+    - irc.mozilla.org#payments
     on_success: change
     on_failure: always
+env:
+  global:
+  - secure: HLMrhCkpwo3z3o02proEnGDaILvyPT4tcCc5DD4rGhagb9Ehq1RKly8rhRsXnY7bPuv7tM/CcqRHwJI7DSGqxDixYmzktjYCYdCMu7wr/fVOjCp3fxuQSaFahMd+UV13g0IHlX4BgootoLuA5V9ydLrbTgb3BXC4HZehcKdmcpPRIm8/fbARZg8NoxD8q4owFtegNlz9qPwbFwVSoIRAz0+Yn83wImakmatMc1R+3uDwoBn8H5vpVWxIo9NlpVZMAeY3XyC0RmUw9xkn8vTT40X1LLqDRxCqcvOPLZ6BT4gI60XmI6BvT7XtmLUD7e5VOjfwNNZxRSY0EaJ0tnc6IE4xMmEGKkfxLt0puG5pKss6L1AGPyBMKGhMwj57wvNvTrOiyerJ3O6WzsVza41Qe5vZO/Tsl97Kqmhkp5zlkaypA6uJtuZubQjN5ToRMdvimaz9dKSDMFxIxPUURcp2UZpSo3K2gubcwWdXLDrcvsvYKLz2GCTRy5EVKQIUu9VSA5hM1WokVnyqhdB2zq1Es20SIhN+UpYtjmR/I3tjEyyfB4YNITYdUuow8VCyVvBYj39CkJFZoL8KWp3K1PS9mFPsyEROZHB1s3Rlxn/sBocfKEnu7BRBAPozQLLzFH1CcubvVvv+VCespJHDspnTRR1HLrXCaZNnTq3ZkRWJiJY=
+  - secure: NLrh9jIBOXLqyjJqsOK0C0iJQfhsBAzeOJlTD0bTFreYQRE+VvJkKEVX/tCR2H3Sq28LmQsQ69tdsZsnNKxyTGRc3YEp2gEkXjA6MZyhm108ItImnJEQtCIV2eubGDhwKi0H1U9ItiTFml+JQ1ptEEWpNEdH2qQexxExBpFiEpqfIJOKN8YTotV7xZDIQfmxmZzjL9BTVMSgFfonfgIbAJ0JQMdIz0polKOS+bZjVyI03wZB16xM9ulyiJpGQDJKjr62ffIvYpaomiZ04zWwbhbAVM/UWyj5ovEti+Dx1uo7kkeQTkaJt6Z57KCniQqcfIVc0BfB0GKXSKXPrC/FqyDOVwkSf1Bfpq207MSm0wQVcQY0TxzFx2qHzRYBsH8BizugAPsvLZEnLrk2ujXHIgJFxJ3Qk/b277A3x7yssWbLDWvcUQndTbsbIz6KoL725CClImJLCQ7F63bihIIkYPt31i1A6RgZyqpd5Ss7CULsvgOcS52qr6jt80oMyLr6Ot3H5wSquNc/t9oj/h8S695qS4F+GZnT/QUMdDQhgSGf56n/lKCf6ZOKRl3zdIX1FOLjiAT0vRj5dn6EqBI9mC1IMsD2lGIWULM7jXd18xBH/4tDkTD21sRN8IZuhoLtlwOKWEzPS5h+pBqiBrhdgVix4Xnvcc25pni7mgJPLDY=
+  - secure: Ba5bev/J57iDayWPbj9WdsTcrbYZcLJrruHO+f+QIdvvP9mthQJDyXHZOs5iPeM7KCjqIS99nM+IOoYjYnMcitqWECPz/A2RfG975k3G9mhsWAXcJfD6WU6kfXSAiRhO91or553EKzGTMZRFazIUSon0t8pNTaVmp7iSU66G5VwgZDCfc0my9Xj7xThcMGkihnD184p/T/axQ8/gCGeNjHdmLH37uo+dolj8oQ1PDQYlU1VwGGqgNKdTK1pUlO/4LK0907/ByguFwgnrha7LWvJ8aAgFNRh2Sw/5IrtxoOx8AGCrtGjz/VxUmRArFiiOpKJefZOVkzx73lVJiavqFr3zjyhXe2cUkeKzOzLNu43xnbzv8LsIQqtjMCiN0mSITSZw27+BB+zUPo9wPKkoXmug35OZe/CafX0WhaK0rkmxQiHv3HH7QMDvqAadnEdHStWmFrPXr0k1A1yYMt4nxg5MIYqz5NfR/IHfNlpLKkrZfoAFud+Es1zPC8mPP36FRIg4XHyv9FOHDj5iCnZND3+6l2ZpYJ4CAA37KWpiJsWFC4IOs5J9zTwXSmAQ0VjmuNefW7SQScIpwE/vAiJeABc6XOfVTu349bJQjSTsrUUxDHCztITPFz5yioj+IwCepDZiodcxCzljSlOoz230DVsvnfEJmvJ4prTpzTZDQik=
