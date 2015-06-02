@@ -1,4 +1,7 @@
 test/
+tasks/
+src/
+node_modules/
 Gruntfile.js
 .travis.yml
 .gitignore
@@ -6,3 +9,5 @@ Gruntfile.js
 .eslintignore
 bower.json
 .npmignore
+webpack.config.js
+karma.conf.js

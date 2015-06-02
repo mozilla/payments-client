@@ -28,12 +28,17 @@ module.exports = {
       },
       repo: 'https://' + process.env.GH_TOKEN + '@github.com/mozilla/payments-client.git',
       message: 'Publish docker build branch (auto)' + getDeployMessage(),
+      // Delete everything apart from the .travis.yml that already exists
+      // in the target (releases) branch. This is a special .travis.yml
+      // that handles our deploy.
+      only: ['**/*', '!.travis.yml'],
     },
     src: [
       'dist/**/*',
       'package.json',
       'LICENSE',
-      'README.md'
+      'README.md',
+      '.gitignore'
     ],
   }
 };
