@@ -8,4 +8,6 @@ This is a JS client for making payments via mozilla payments.
 
 ## Installation
 
+```shell
 npm install --save mozilla-payments-client
+```
