@@ -82,6 +82,32 @@ describe('Test client', function() {
                  'a').length, 1);
   });
 
+  it('should have a close when told to by postMessage', function(done) {
+    this.client.show();
+    assert.equal(this.modalParent.querySelectorAll(
+                 '.' + this.client.prefix('modal')).length, 1);
+    this.client.receiveMessage({origin: 'http://pay.dev:8000', data: 'close'});
+    var modalContainer = '.' + this.client.prefix('container');
+    var that = this;
+    window.setTimeout(function() {
+      assert.equal(that.modalParent.querySelector(modalContainer), null);
+      done();
+    }, 0);
+  });
+
+  it('should not close due to postMessage from bad origin', function(done) {
+    this.client.show();
+    assert.equal(this.modalParent.querySelectorAll(
+                 '.' + this.client.prefix('modal')).length, 1);
+    this.client.receiveMessage({origin: 'http://whatever', data: 'close'});
+    var modalContainer = '.' + this.client.prefix('container');
+    var that = this;
+    window.setTimeout(function() {
+      assert.notEqual(that.modalParent.querySelector(modalContainer), null);
+      done();
+    }, 0);
+  });
+
   it('should close when close link is clicked', function(done) {
     this.client.show();
     assert.equal(this.modalParent.querySelectorAll(

@@ -38,14 +38,35 @@ function PaymentsClient(config) {
   if (this.httpsOnly === false) {
     console.warn('httpsOnly is set to false. Only use for dev');
   }
+
+  var that = this;
+  window.addEventListener('message', function(e) {
+    that.receiveMessage.call(that, e);
+  }, false);
+
   return this;
 }
 
 PaymentsClient.prototype = {
+
+  validIframeOrigins: [
+    'http://pay.dev:8000',
+    'http://pay.dev.mozaws.net:8000',
+  ],
+
   classPrefix: 'fxa-pay',
 
   prefix: function(str) {
     return this.classPrefix + '-' + str;
+  },
+
+  receiveMessage: function(e) {
+    if (this.validIframeOrigins.indexOf(e.origin) === -1) {
+      return;
+    }
+    if (e.data === 'close') {
+      this.close();
+    }
   },
 
   getStyle: function (elm, prop) {
