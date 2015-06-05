@@ -62,10 +62,19 @@ PaymentsClient.prototype = {
 
   receiveMessage: function(e) {
     if (this.validIframeOrigins.indexOf(e.origin) === -1) {
+      console.warn('Ignored message from invalid origin', e.origin);
       return;
     }
-    if (e.data === 'close') {
-      this.close();
+    try {
+      var data = JSON.parse(e.data) || {};
+      if (data.event === 'purchase-completed') {
+        this.close();
+      } else {
+        console.warn('Unhandled postMessage data received');
+      }
+    } catch(err) {
+      console.error('postMessage data should be stringified JSON', e.data);
+      throw err;
     }
   },
 

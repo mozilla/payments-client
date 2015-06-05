@@ -99,21 +99,49 @@ describe('Test client', function() {
     window.setTimeout(function() {
       assert.equal(that.getAllByPrefixedClass('modal').length, 0);
       done();
-    }, 50);
+    }, 100);
   });
 
-  it('should close when told to by postMessage', function() {
+  it('should close when "purchase-completed" is received', function() {
     this.client.show();
     assert.equal(this.getAllByPrefixedClass('modal').length, 1);
-    this.client.receiveMessage({origin: 'http://pay.dev:8000', data: 'close'});
+    this.client.receiveMessage({
+      origin: 'http://pay.dev:8000',
+      data: JSON.stringify({event: 'purchase-completed'}),
+    });
     assert.equal(this.client.close.callCount, 1);
   });
 
-  it('should not close due to postMessage from bad origin', function() {
+  it('should not close due to bad event', function() {
     this.client.show();
     assert.equal(this.getAllByPrefixedClass('modal').length, 1);
-    this.client.receiveMessage({origin: 'http://whatever', data: 'close'});
+    this.client.receiveMessage({
+      origin: 'http://pay.dev:8000',
+      data: JSON.stringify({event: 'AWOOGA'}),
+    });
     assert.equal(this.client.close.callCount, 0);
+  });
+
+  it('should not close due to bad origin', function() {
+    this.client.show();
+    assert.equal(this.getAllByPrefixedClass('modal').length, 1);
+    this.client.receiveMessage({
+      origin: 'http://whatever',
+      data: JSON.stringify({event: 'purchase-completed'}),
+    });
+    assert.equal(this.client.close.callCount, 0);
+  });
+
+  it('should throw on receiving invalid JSON', function() {
+    this.client.show();
+    assert.equal(this.getAllByPrefixedClass('modal').length, 1);
+    var that = this;
+    assert.throw(function() {
+      that.client.receiveMessage({
+        origin: 'http://pay.dev:8000',
+        data: 'AWOOGA',
+      });
+    }, SyntaxError);
   });
 
   it('should close when close link is clicked', function() {
