@@ -54,10 +54,20 @@ describe('Test client', function() {
       product: 'something-awesome',
       accessToken: 'blah-blah-access-token-blah',
     });
+    sinon.spy(this.client, 'close');
+    this.getByPrefixedClass = function(classSuffix) {
+      var className = '.' + this.client.prefix(classSuffix);
+      return this.modalParent.querySelector(className);
+    };
+    this.getAllByPrefixedClass = function(classSuffix) {
+      var className = '.' + this.client.prefix(classSuffix);
+      return this.modalParent.querySelectorAll(className);
+    };
   });
 
   afterEach(function() {
     this.modalParent.innerHTML = '';
+    this.client.close.restore();
   });
 
   it('should be available via require', function() {
@@ -66,14 +76,12 @@ describe('Test client', function() {
 
   it('should have a container', function() {
     this.client.show();
-    assert.equal(this.modalParent.querySelectorAll(
-                 '.' + this.client.prefix('container')).length, 1);
+    assert.equal(this.getAllByPrefixedClass('container').length, 1);
   });
 
   it('should have a modal', function() {
     this.client.show();
-    assert.equal(this.modalParent.querySelectorAll(
-                 '.' + this.client.prefix('modal')).length, 1);
+    assert.equal(this.getAllByPrefixedClass('modal').length, 1);
   });
 
   it('should have a close link', function() {
@@ -82,56 +90,51 @@ describe('Test client', function() {
                  'a').length, 1);
   });
 
-  it('should have a close when told to by postMessage', function(done) {
+  it('should close when close() is called', function(done) {
     this.client.show();
-    assert.equal(this.modalParent.querySelectorAll(
-                 '.' + this.client.prefix('modal')).length, 1);
+    assert.equal(this.getAllByPrefixedClass('modal').length, 1);
+    this.client.close();
+    var that = this;
+    // Hack to ensure close has had time to clean-up.
+    window.setTimeout(function() {
+      assert.equal(that.getAllByPrefixedClass('modal').length, 0);
+      done();
+    }, 50);
+  });
+
+  it('should close when told to by postMessage', function() {
+    this.client.show();
+    assert.equal(this.getAllByPrefixedClass('modal').length, 1);
     this.client.receiveMessage({origin: 'http://pay.dev:8000', data: 'close'});
-    var modalContainer = '.' + this.client.prefix('container');
-    var that = this;
-    window.setTimeout(function() {
-      assert.equal(that.modalParent.querySelector(modalContainer), null);
-      done();
-    }, 0);
+    assert.equal(this.client.close.callCount, 1);
   });
 
-  it('should not close due to postMessage from bad origin', function(done) {
+  it('should not close due to postMessage from bad origin', function() {
     this.client.show();
-    assert.equal(this.modalParent.querySelectorAll(
-                 '.' + this.client.prefix('modal')).length, 1);
+    assert.equal(this.getAllByPrefixedClass('modal').length, 1);
     this.client.receiveMessage({origin: 'http://whatever', data: 'close'});
-    var modalContainer = '.' + this.client.prefix('container');
-    var that = this;
-    window.setTimeout(function() {
-      assert.notEqual(that.modalParent.querySelector(modalContainer), null);
-      done();
-    }, 0);
+    assert.equal(this.client.close.callCount, 0);
   });
 
-  it('should close when close link is clicked', function(done) {
+  it('should close when close link is clicked', function() {
     this.client.show();
-    assert.equal(this.modalParent.querySelectorAll(
-                 '.' + this.client.prefix('modal')).length, 1);
+    assert.equal(this.getAllByPrefixedClass('modal').length, 1);
     helpers.simulateClick(this.modalParent.querySelector('a'));
-    var modalContainer = '.' + this.client.prefix('container');
-    var that = this;
-    window.setTimeout(function() {
-      assert.equal(that.modalParent.querySelector(modalContainer), null);
-      done();
-    }, 0);
+    assert.equal(this.client.close.callCount, 1);
   });
 
-  it('should close when clicked outside the modal', function(done) {
+  it('should close when clicked outside the modal', function() {
     this.client.show();
-    assert.equal(this.modalParent.querySelectorAll(
-                 '.' + this.client.prefix('modal')).length, 1);
-    var modalContainer = '.' + this.client.prefix('container');
-    helpers.simulateClick(this.modalParent.querySelector(modalContainer));
-    var that = this;
-    window.setTimeout(function() {
-      assert.equal(that.modalParent.querySelector(modalContainer), null);
-      done();
-    }, 0);
+    assert.equal(this.getAllByPrefixedClass('modal').length, 1);
+    helpers.simulateClick(this.getByPrefixedClass('container'));
+    assert.equal(this.client.close.callCount, 1);
+  });
+
+  it('should not close when the modal itself is clicked', function() {
+    this.client.show();
+    assert.equal(this.getAllByPrefixedClass('modal').length, 1);
+    helpers.simulateClick(this.getByPrefixedClass('modal'));
+    assert.equal(this.client.close.callCount, 0);
   });
 
   it('iframeSrc should be have product and accessToken', function() {

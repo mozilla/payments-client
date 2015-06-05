@@ -9,6 +9,7 @@ module.exports = function (config) {
     frameworks: [
       'mocha',
       'chai',
+      'sinon',
     ],
     files: [
       'tests/test-loader.js',
@@ -31,6 +32,7 @@ module.exports = function (config) {
       'karma-mocha-reporter',
       'karma-chai',
       'karma-firefox-launcher',
+      'karma-sinon',
       'karma-sourcemap-loader',
       'karma-webpack',
     ],
