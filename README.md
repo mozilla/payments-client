@@ -11,3 +11,16 @@ This is a JS client for making payments via mozilla payments.
 ```shell
 npm install --save mozilla-payments-client
 ```
+
+## Cutting a release
+
+With all the changes you want already landed in master - here's the steps for cutting a new release:
+
+* Bump the version in `package.json`. 
+* Commit it to master
+* Go to the releases page on github [1] and hit "Draft a new release"
+* Use `<VERSION>` for both the tag and the release title. (The tag shouldn't already exist) 
+* Add what's changed.
+* Hit "publish release" and the current rev of master will be tagged and the package will be pushed to npm automatically. 
+ 
+[1] https://github.com/mozilla/payments-client/releases
