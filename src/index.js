@@ -5,7 +5,7 @@ var utils = require('utils');
 function PaymentsClient(config) {
   config = config || {};
 
-  this.modalParent = config.modalParent || document.documentElement;
+  this.modalParent = config.modalParent || document.body;
   // Create a unique instance id.
   this.id = '_' + Math.random().toString(36).substr(2, 9);
   this.modalWidth = config.modalWidth || 318;
@@ -210,7 +210,7 @@ PaymentsClient.prototype = {
     this.modal._inner.style.opacity = 0;
     var that = this;
     window.setTimeout(function(){
-      that.modal.parentNode.removeChild(that.modal);
+      that.modalParent.removeChild(that.modal);
     }, this.closeDelayMs);
   },
 };
