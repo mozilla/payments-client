@@ -38,14 +38,44 @@ function PaymentsClient(config) {
   if (this.httpsOnly === false) {
     console.warn('httpsOnly is set to false. Only use for dev');
   }
+
+  var that = this;
+  window.addEventListener('message', function(e) {
+    that.receiveMessage.call(that, e);
+  }, false);
+
   return this;
 }
 
 PaymentsClient.prototype = {
+
+  validIframeOrigins: [
+    'http://pay.dev:8000',
+    'http://pay.dev.mozaws.net:8000',
+  ],
+
   classPrefix: 'fxa-pay',
 
   prefix: function(str) {
     return this.classPrefix + '-' + str;
+  },
+
+  receiveMessage: function(e) {
+    if (this.validIframeOrigins.indexOf(e.origin) === -1) {
+      console.warn('Ignored message from invalid origin', e.origin);
+      return;
+    }
+    try {
+      var data = JSON.parse(e.data) || {};
+      if (data.event === 'purchase-completed') {
+        this.close();
+      } else {
+        console.warn('Unhandled postMessage data received');
+      }
+    } catch(err) {
+      console.error('postMessage data should be stringified JSON', e.data);
+      throw err;
+    }
   },
 
   getStyle: function (elm, prop) {
