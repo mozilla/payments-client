@@ -172,7 +172,7 @@ describe('Test client', function() {
     this.client.show();
     var iframeNode = this.modalParent.querySelector('iframe');
     assert.notEqual(iframeNode, null);
-    assert.include(iframeNode.src, 'http://pay.dev:8000/?');
+    assert.include(iframeNode.src, 'http://pay.dev:8000/#/?');
     assert.include(iframeNode.src, 'product=something-awesome');
     assert.include(iframeNode.src, 'access_token=blah-blah-access-token-blah');
   });

@@ -28,6 +28,6 @@ module.exports = {
 
   buildIframeSrc: function buildIframeSrc(host, params) {
     host = !/\/$/.test(host) ? host + '/' : host;
-    return host + '?' + this.serialize(params);
+    return host + '#/?' + this.serialize(params);
   },
 };
