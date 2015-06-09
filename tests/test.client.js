@@ -66,7 +66,9 @@ describe('Test client', function() {
   });
 
   afterEach(function() {
-    this.modalParent.innerHTML = '';
+    if (this.modalParent && this.modalParent.hasChildNodes()) {
+      this.modalParent.innerHTML = '';
+    }
     this.client.close.restore();
   });
 
@@ -97,7 +99,8 @@ describe('Test client', function() {
     var that = this;
     // Hack to ensure close has had time to clean-up.
     window.setTimeout(function() {
-      assert.equal(that.getAllByPrefixedClass('modal').length, 0);
+      console.log('looking for modal');
+      assert.notOk(that.modalParent.hasChildNodes());
       done();
     }, 100);
   });
