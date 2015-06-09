@@ -43,13 +43,13 @@ describe('utils.buildIframeSrc()', function() {
   it('should build iframe url from host + params', function() {
     assert.equal(
       utils.buildIframeSrc('https://bar.com/', {foo: 'bar', baz: 'zup'}),
-      'https://bar.com/?foo=bar&baz=zup');
+      'https://bar.com/#/?foo=bar&baz=zup');
   });
 
   it('should add a missing trailing /', function() {
     assert.equal(
       utils.buildIframeSrc('https://bar.com', {foo: 'bar', baz: 'zup'}),
-      'https://bar.com/?foo=bar&baz=zup');
+      'https://bar.com/#/?foo=bar&baz=zup');
   });
 
 });
