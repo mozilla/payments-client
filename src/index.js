@@ -97,8 +97,8 @@ PaymentsClient.prototype = {
     fontSize: '20px',
     position: 'absolute',
     padding: '10px',
-    top: 0,
-    right: 0,
+    top: '75px',
+    right: '5px',
     textDecoration: 'none',
   },
 
@@ -124,12 +124,8 @@ PaymentsClient.prototype = {
       left: '50%',
       height: that.modalHeight + 'px',
       width: that.modalWidth + 'px',
-      backgroundColor: '#fff',
       marginTop: '-' + that.modalHeight / 2 + 'px',
       marginLeft: '-' + that.modalWidth / 2 + 'px',
-      border: '1px solid #C3CFD8',
-      borderRadius: '2px',
-      boxShadow: '0 3px 7px rgba(0, 0, 0, 0.5)',
       zIndex: 2010,
       transition: 'opacity 0.3s',
       opacity: 0,
@@ -182,6 +178,7 @@ PaymentsClient.prototype = {
       access_token: this.accessToken,
       product: this.product,
     });
+    iframe_.setAttribute('allowtransparency', 'true');
     iframe_.setAttribute('src', iframeSrc);
     inner.appendChild(iframe_);
 
