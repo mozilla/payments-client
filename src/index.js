@@ -97,7 +97,7 @@ PaymentsClient.prototype = {
     fontSize: '20px',
     position: 'absolute',
     padding: '10px',
-    top: '75px',
+    top: '50px',
     right: '5px',
     textDecoration: 'none',
   },
