@@ -4,8 +4,7 @@
   "description": "Modal window JS client for mozilla/payments",
   "main": "dist/payments-client.js",
   "scripts": {
-    "test": "node -e \"require('grunt').cli()\" null test",
-    "publish-release": "node -e \"require('grunt').cli()\" null build publish-release"
+    "test": "node -e \"require('grunt').cli()\" null test"
   },
   "keywords": [
     "js",
@@ -34,6 +33,7 @@
     "karma-webpack": "^1.5.1",
     "load-grunt-configs": "^0.4.3",
     "load-grunt-tasks": "^3.1.0",
+    "lodash.defaults": "^3.1.1",
     "node-libs-browser": "^0.5.0",
     "sinon": "^1.14.1",
     "webpack": "^1.9.7",
