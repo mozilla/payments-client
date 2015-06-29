@@ -12,6 +12,6 @@ module.exports = function(grunt) {
 
   grunt.initConfig(configs);
   grunt.registerTask('build', ['webpack:dist']);
-  grunt.registerTask('watch', ['webpack:watch']);
+  grunt.registerTask('start', ['webpack:watch']);
   grunt.registerTask('test', ['webpack:dist', 'karma:run', 'eslint']);
 };
