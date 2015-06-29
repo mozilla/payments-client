@@ -19,7 +19,7 @@ module.exports = function (config) {
     },
     reporters: ['mocha'],
     webpack: {
-     resolve: {
+      resolve: {
         extensions: ['', '.js'],
         modulesDirectories: ['dist', 'src', 'tests', 'node_modules'],
       },
