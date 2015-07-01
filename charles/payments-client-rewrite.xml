@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<?charles serialisation-version='2.0' ?>
+<rewriteSet-array>
+  <rewriteSet>
+    <active>true</active>
+    <name>Payments Client</name>
+    <hosts>
+      <locationPatterns>
+        <locationMatch>
+          <location>
+            <host>pay.dev</host>
+            <path>/lib/js/payments-client.js</path>
+          </location>
+          <enabled>true</enabled>
+        </locationMatch>
+      </locationPatterns>
+    </hosts>
+    <rules>
+      <rewriteRule>
+        <active>true</active>
+        <ruleType>6</ruleType>
+        <matchValue>http://pay.dev/lib/js/payments-client.js</matchValue>
+        <matchHeaderRegex>false</matchHeaderRegex>
+        <matchValueRegex>false</matchValueRegex>
+        <matchRequest>false</matchRequest>
+        <matchResponse>false</matchResponse>
+        <newValue>http://localhost:8080/payments-client.js</newValue>
+        <newHeaderRegex>false</newHeaderRegex>
+        <newValueRegex>false</newValueRegex>
+        <matchWholeValue>false</matchWholeValue>
+        <caseSensitive>false</caseSensitive>
+        <replaceType>2</replaceType>
+      </rewriteRule>
+    </rules>
+  </rewriteSet>
+</rewriteSet-array>
