@@ -4,6 +4,7 @@ var utils = require('utils');
 
 function PaymentsClient(config) {
   config = config || {};
+  config.product = config.product || {};
 
   this.modalParent = config.modalParent || document.body;
   // Create a unique instance id.
@@ -13,7 +14,6 @@ function PaymentsClient(config) {
   this.closeDelayMs = typeof config.closeDelayMs === 'number' ?
                         config.closeDelayMs : 300;
   this.accessToken = config.accessToken;
-  this.product = config.product;
   this.paymentHost = config.paymentHost || 'http://pay.dev:8000/';
   this.httpsOnly =
     typeof config.httpsOnly === 'undefined' ? true : config.httpsOnly;
@@ -27,8 +27,19 @@ function PaymentsClient(config) {
     throw new Error('paymentHost must be http or https');
   }
 
-  if (typeof this.product !== 'string') {
-    throw new Error('A \'product\' string must be provided');
+  if (typeof config.product !== 'object' || !config.product.id) {
+    throw new Error('A product id must be provided in a product object');
+  }
+
+  var productImageUrl = config.product.image;
+  if (!productImageUrl) {
+    console.warn(
+      'A product image URL was not supplied as a property of config.product.');
+  } else {
+    var imageProtocol = utils.getProtocol(productImageUrl);
+    if (imageProtocol !== 'http:' && imageProtocol !== 'https:') {
+      throw new Error('product.image must be served over http/https');
+    }
   }
 
   if (typeof this.accessToken !== 'string') {
@@ -43,6 +54,8 @@ function PaymentsClient(config) {
   window.addEventListener('message', function(e) {
     that.receiveMessage.call(that, e);
   }, false);
+
+  this.product = config.product;
 
   return this;
 }
@@ -88,47 +101,64 @@ PaymentsClient.prototype = {
 
   iframeStyle: {
     border: 'none',
-    width: '100%',
     height: '100%',
+    width: '100%',
   },
 
   closeButtonStyle: {
     color: '#666',
     fontSize: '20px',
-    position: 'absolute',
     padding: '10px',
-    top: '50px',
+    position: 'absolute',
     right: '5px',
     textDecoration: 'none',
+    zIndex: 2020,
   },
 
   outerStyle: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    position: 'fixed',
-    top: 0,
     bottom: 0,
     left: 0,
-    right: 0,
-    zIndex: 2000,
-    transition: 'opacity 0.3s',
     opacity: 0,
+    position: 'fixed',
+    right: 0,
+    top: 0,
+    transition: 'opacity 0.3s',
+    zIndex: 2000,
+  },
+
+  getProductImageStyle: function() {
+    var that = this;
+    return {
+      left: 0,
+      background: 'url(' + that.product.image + ') no-repeat 50% 0',
+      backgroundSize: '55px',
+      position: 'absolute',
+      right: 0,
+      top: '-27.5px',
+      zIndex: 2015,
+      height: '55px',
+    };
   },
 
   getInnerStyle: function() {
     var that = this;
     return {
-      padding: '5px',
-      paddingTop: '25px',
+      backgroundColor: '#fff',
+      border: '1px solid #C3CFD8',
+      borderRadius: '3px',
+      boxShadow: '0 3px 7px rgba(0, 0, 0, 0.5)',
+      height: that.modalHeight + 'px',
+      left: '50%',
+      marginLeft: '-' + that.modalWidth / 2 + 'px',
+      marginTop: '-' + that.modalHeight / 2 + 'px',
+      opacity: 0,
+      padding: '0',
       position: 'absolute',
       top: '50%',
-      left: '50%',
-      height: that.modalHeight + 'px',
-      width: that.modalWidth + 'px',
-      marginTop: '-' + that.modalHeight / 2 + 'px',
-      marginLeft: '-' + that.modalWidth / 2 + 'px',
-      zIndex: 2010,
       transition: 'opacity 0.3s',
-      opacity: 0,
+      width: that.modalWidth + 'px',
+      zIndex: 2010,
     };
   },
 
@@ -159,6 +189,12 @@ PaymentsClient.prototype = {
     outer.appendChild(inner);
     this.applyStyles(outer, this.outerStyle);
 
+    if (this.product.image) {
+      var productImage = doc.createElement('div');
+      this.applyStyles(productImage, this.getProductImageStyle());
+      inner.appendChild(productImage);
+    }
+
     var closeButton = doc.createElement('a');
     closeButton.href = '#';
     var buttonText = doc.createTextNode('×');
@@ -176,9 +212,8 @@ PaymentsClient.prototype = {
     var iframe_ = doc.createElement('iframe');
     var iframeSrc = utils.buildIframeSrc(this.paymentHost, {
       access_token: this.accessToken,
-      product: this.product,
+      product: this.product.id,
     });
-    iframe_.setAttribute('allowtransparency', 'true');
     iframe_.setAttribute('src', iframeSrc);
     inner.appendChild(iframe_);
 
