@@ -21,7 +21,7 @@ module.exports = {
   ],
   resolve: {
     extensions: ['', '.js'],
-    modulesDirectories: ['src'],
+    modulesDirectories: ['src', 'node_modules'],
   },
   stats: {
     // Configure the console output
