@@ -3,12 +3,27 @@
 var PaymentsClient = require('payments-client');
 var helpers = require('helpers');
 
+var httpsLocationObj = {
+  location: {
+    protocol: 'https:',
+  },
+};
+
 describe('Test client options', function() {
 
-  it('should allow only https by default', function() {
+  it('should allow only be served under https by default', function() {
     assert.throw(function() {
       /*eslint-disable no-new */
       new PaymentsClient();
+    }, Error, /Host site should run under SSL/);
+  });
+
+  it('should allow only https paymentHost by default', function() {
+    assert.throw(function() {
+      /*eslint-disable no-new */
+      new PaymentsClient({
+        _window: httpsLocationObj,
+      });
     }, Error, /paymentHost is not https/);
   });
 
@@ -22,13 +37,40 @@ describe('Test client options', function() {
     }, Error, /paymentHost must be http or https/);
   });
 
-  it('should throw if missing product name', function() {
+  it('should allow only https image protocol by default', function() {
+    assert.throw(function() {
+      /*eslint-disable no-new */
+      new PaymentsClient({
+        _window: httpsLocationObj,
+        product: {
+          id: 'whatever',
+          image: 'http://whatever.com/foo.jpg',
+        },
+        paymentHost: 'https://whatever.com',
+      });
+    }, Error, /product.image must be served over https/);
+  });
+
+  it('should throw if image not http or https', function() {
+    assert.throw(function() {
+      /*eslint-disable no-new, no-script-url */
+      new PaymentsClient({
+        httpsOnly: false,
+        product: {
+          id: 'whatever',
+          image: 'javascript:alert(\'foo\')',
+        },
+      });
+    }, Error, /product.image is served over an invalid/);
+  });
+
+  it('should throw if missing product.id', function() {
     assert.throw(function() {
       /*eslint-disable no-new */
       new PaymentsClient({
         httpsOnly: false,
       });
-    }, Error, /A 'product' string must/);
+    }, Error, /A product id must/);
   });
 
   it('should throw if missing an accessToken name', function() {
@@ -36,7 +78,9 @@ describe('Test client options', function() {
       /*eslint-disable no-new */
       new PaymentsClient({
         httpsOnly: false,
-        product: 'whatever',
+        product: {
+          id: 'whatever',
+        },
       });
     }, Error, /An 'accessToken' string must/);
   });
@@ -51,7 +95,9 @@ describe('Test client', function() {
       httpsOnly: false,
       modalParent: this.modalParent,
       closeDelayMs: 0,
-      product: 'something-awesome',
+      product: {
+        id: 'something-awesome',
+      },
       accessToken: 'blah-blah-access-token-blah',
     });
     sinon.spy(this.client, 'close');
