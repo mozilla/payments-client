@@ -3,12 +3,27 @@
 var PaymentsClient = require('payments-client');
 var helpers = require('helpers');
 
+var httpsLocationObj = {
+  location: {
+    protocol: 'https:',
+  },
+};
+
 describe('Test client options', function() {
 
-  it('should allow only https by default', function() {
+  it('should allow only be served under https by default', function() {
     assert.throw(function() {
       /*eslint-disable no-new */
       new PaymentsClient();
+    }, Error, /Host site should run under SSL/);
+  });
+
+  it('should allow only https paymentHost by default', function() {
+    assert.throw(function() {
+      /*eslint-disable no-new */
+      new PaymentsClient({
+        _window: httpsLocationObj,
+      });
     }, Error, /paymentHost is not https/);
   });
 
@@ -22,6 +37,20 @@ describe('Test client options', function() {
     }, Error, /paymentHost must be http or https/);
   });
 
+  it('should allow only https image protocol by default', function() {
+    assert.throw(function() {
+      /*eslint-disable no-new */
+      new PaymentsClient({
+        _window: httpsLocationObj,
+        product: {
+          id: 'whatever',
+          image: 'http://whatever.com/foo.jpg',
+        },
+        paymentHost: 'https://whatever.com',
+      });
+    }, Error, /product.image must be served over https/);
+  });
+
   it('should throw if image not http or https', function() {
     assert.throw(function() {
       /*eslint-disable no-new, no-script-url */
@@ -32,7 +61,7 @@ describe('Test client options', function() {
           image: 'javascript:alert(\'foo\')',
         },
       });
-    }, Error, /product.image must be served over http\/https/);
+    }, Error, /product.image is served over an invalid/);
   });
 
   it('should throw if missing product.id', function() {

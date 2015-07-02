@@ -19,6 +19,12 @@ function PaymentsClient(config) {
     typeof config.httpsOnly === 'undefined' ? true : config.httpsOnly;
 
   var paymentHostProtocol = utils.getProtocol(this.paymentHost);
+  var win = config._window || window;
+
+  if (this.httpsOnly === true && win.location.protocol !== 'https:') {
+    throw new Error('Host site should run under SSL');
+  }
+
   if (this.httpsOnly === true && paymentHostProtocol !== 'https:') {
     throw new Error('paymentHost is not https');
   }
@@ -37,8 +43,10 @@ function PaymentsClient(config) {
       'A product image URL was not supplied as a property of config.product.');
   } else {
     var imageProtocol = utils.getProtocol(productImageUrl);
-    if (imageProtocol !== 'http:' && imageProtocol !== 'https:') {
-      throw new Error('product.image must be served over http/https');
+    if (this.httpsOnly && imageProtocol !== 'https:') {
+      throw new Error('product.image must be served over https');
+    } else if (imageProtocol !== 'http:' && imageProtocol !== 'https:') {
+      throw new Error('product.image is served over an invalid protocol');
     }
   }
 
