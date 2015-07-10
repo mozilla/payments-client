@@ -250,7 +250,9 @@ PaymentsClient.prototype = {
     this.modal._inner.style.opacity = 0;
     var that = this;
     window.setTimeout(function(){
-      that.modalParent.removeChild(that.modal);
+      if (that.modal && that.modal.parentNode) {
+        that.modal.parentNode.removeChild(that.modal);
+      }
     }, this.closeDelayMs);
   },
 };
