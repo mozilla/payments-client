@@ -4,7 +4,7 @@
   "description": "Modal window JS client for mozilla/payments",
   "main": "dist/payments-client.js",
   "scripts": {
-    "test": "node -e \"require('grunt').cli()\" null test"
+    "test": "node -e \"require('grunt').cli()\" null test-ci"
   },
   "keywords": [
     "js",
