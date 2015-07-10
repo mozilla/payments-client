@@ -25,6 +25,36 @@ served by mozilla/payments-example with the built file containing changes you're
 
 To do this import the charles rewrite config (see the Charles directory).
 
+## Tests
+
+To run the tests locally run: `grunt test`. This will run the unit tests
+against Firefox.
+
+### Cross-browser testing
+
+The tests are run only on Firefox when a PR is submitted. When that code is landed
+Travis will run the tests on Sauce Labs.
+
+#### Running Sauce Labs on a PR [Team Only]
+
+If you're a member of the payments team and you want to get Sauce Labs coverage
+for a PR - push the branch to the main `mozilla/payments-client` repo and make a PR
+from that.
+
+#### Running the tests on SauceLabs locally
+
+First [Sign-up for a Sauce Labs 'Open Sauce' account](https://saucelabs.com/opensauce/)
+to get your keys.
+
+Then you'll need to export the SauceLabs username and access key as env vars:
+
+```shell
+export SAUCE_USERNAME=<YOUR_OPEN_SAUCE_USERNAME>
+export SAUCE_ACCESS_KEY=<YOUR_ACCESS_KEY>
+```
+
+Then you should find you can run: `grunt karma:sauce` and run all the tests on SauceLabs.
+
 ## Cutting a release
 
 With all the changes you want already landed in master - here's the steps for cutting a new release:
