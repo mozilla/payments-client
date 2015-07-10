@@ -2,6 +2,11 @@
 [![npm version](https://badge.fury.io/js/mozilla-payments-client.svg)](http://badge.fury.io/js/mozilla-payments-client)
 [![devDependency Status](https://david-dm.org/mozilla/payments-client/dev-status.svg)](https://david-dm.org/mozilla/payments-client#info=devDependencies)
 
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/payments-client.svg)](https://saucelabs.com/u/payments-client)
+
+*Note: Sauce Labs tests are only run on PRs from the main repo or commits to master.*
+
+
 # Payments Client
 
 This is a JS client for making payments via mozilla payments.
