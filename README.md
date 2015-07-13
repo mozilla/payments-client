@@ -38,7 +38,7 @@ against Firefox.
 ### Cross-browser testing
 
 The tests are run only on Firefox when a PR is submitted. When that code is landed
-Travis will run the tests on Sauce Labs.
+on master, Travis will run the tests on Sauce Labs.
 
 #### Running Sauce Labs on a PR [Team Only]
 
