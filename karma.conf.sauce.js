@@ -4,7 +4,7 @@
 'use strict';
 
 var defaults = require('lodash.defaults');
-var karmaConfig = require('./karma.config.shared');
+var karmaConfig = require('./karma.shared');
 var browsers = require('mozilla-payments-saucelabs-browsers');
 
 
