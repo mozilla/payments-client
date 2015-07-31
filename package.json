@@ -1,6 +1,6 @@
 {
   "name": "mozilla-payments-client",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Modal window JS client for mozilla/payments",
   "main": "dist/payments-client.js",
   "scripts": {
