@@ -73,6 +73,7 @@ PaymentsClient.prototype = {
   validIframeOrigins: [
     'http://pay.dev:8000',
     'http://pay.dev.mozaws.net:8000',
+    'http://pay.webpack:8080',
   ],
 
   classPrefix: 'fxa-pay',
