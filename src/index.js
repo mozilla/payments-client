@@ -183,10 +183,6 @@ PaymentsClient.prototype = {
     var outer = doc.createElement('div');
     outer.setAttribute('id', this.id);
     outer.className = this.prefix('container');
-    outer.addEventListener('click', function(e) {
-      e.preventDefault();
-      that.close();
-    }, false);
 
     var inner = doc.createElement('div');
     inner.className = this.prefix('modal');
