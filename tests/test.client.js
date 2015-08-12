@@ -200,11 +200,11 @@ describe('Test client', function() {
     assert.equal(this.client.close.callCount, 1);
   });
 
-  it('should close when clicked outside the modal', function() {
+  it('should not close when clicked outside the modal', function() {
     this.client.show();
     assert.equal(this.getAllByPrefixedClass('modal').length, 1);
     helpers.simulateClick(this.getByPrefixedClass('container'));
-    assert.equal(this.client.close.callCount, 1);
+    assert.equal(this.client.close.callCount, 0);
   });
 
   it('should not close when the modal itself is clicked', function() {
