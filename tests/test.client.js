@@ -73,18 +73,6 @@ describe('Test client options', function() {
     }, Error, /A product id must/);
   });
 
-  it('should throw if missing an accessToken name', function() {
-    assert.throw(function() {
-      /*eslint-disable no-new */
-      new PaymentsClient({
-        httpsOnly: false,
-        product: {
-          id: 'whatever',
-        },
-      });
-    }, Error, /An 'accessToken' string must/);
-  });
-
 });
 
 describe('Test client', function() {
@@ -97,6 +85,7 @@ describe('Test client', function() {
       closeDelayMs: 0,
       product: {
         id: 'something-awesome',
+        amount: 5,
       },
       accessToken: 'blah-blah-access-token-blah',
     });
@@ -221,6 +210,7 @@ describe('Test client', function() {
     assert.include(iframeNode.src, 'http://pay.dev:8000/#/?');
     assert.include(iframeNode.src, 'product=something-awesome');
     assert.include(iframeNode.src, 'access_token=blah-blah-access-token-blah');
+    assert.include(iframeNode.src, 'amount=5');
   });
 
 });
