@@ -13,7 +13,7 @@ function PaymentsClient(config) {
   this.modalHeight = config.modalHeight || 468;
   this.closeDelayMs = typeof config.closeDelayMs === 'number' ?
                         config.closeDelayMs : 300;
-  this.accessToken = config.accessToken;
+  this.accessToken = config.accessToken || null;
   this.paymentHost = config.paymentHost || 'http://pay.dev:8000/';
   this.httpsOnly =
     typeof config.httpsOnly === 'undefined' ? true : config.httpsOnly;
@@ -50,10 +50,6 @@ function PaymentsClient(config) {
     }
   }
 
-  if (typeof this.accessToken !== 'string') {
-    throw new Error('An \'accessToken\' string must be provided');
-  }
-
   if (this.httpsOnly === false) {
     console.warn('httpsOnly is set to false. Only use for dev');
   }
@@ -64,6 +60,7 @@ function PaymentsClient(config) {
   }, false);
 
   this.product = config.product;
+  this.amount = config.product.amount || null;
 
   return this;
 }
@@ -217,9 +214,11 @@ PaymentsClient.prototype = {
     var iframe_ = doc.createElement('iframe');
     var iframeSrc = utils.buildIframeSrc(this.paymentHost, {
       access_token: this.accessToken,
+      amount: this.amount,
       product: this.product.id,
     });
     iframe_.setAttribute('src', iframeSrc);
+
     inner.appendChild(iframe_);
 
     this.applyStyles(iframe_, this.iframeStyle);

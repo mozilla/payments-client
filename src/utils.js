@@ -9,7 +9,7 @@ module.exports = {
 
   /**
   * Take an object of key value pairs and serialize it into a url-encoded
-  * query string.
+  * query string. Null values are ignored.
   * @example
   * // returns foo=bar&baz=zup
   * utils.serialize({'foo': 'bar', 'baz': 'zup'});
@@ -19,7 +19,7 @@ module.exports = {
   serialize: function serialize(obj) {
     var str = [];
     for (var p in obj){
-      if (obj.hasOwnProperty(p)) {
+      if (obj[p] && obj.hasOwnProperty(p)) {
         str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
       }
     }

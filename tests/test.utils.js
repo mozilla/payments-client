@@ -29,6 +29,11 @@ describe('utils.serialize()', function() {
                  'foo=bar&baz=zup');
   });
 
+  it('should ignore nulls', function() {
+    assert.equal(utils.serialize({foo: 'bar', baz: null}),
+                 'foo=bar');
+  });
+
   it('should urlencode keys + values', function() {
     assert.equal(
       utils.serialize({'album name': 'Back in Black', 'artist': 'AC/DC'}),
