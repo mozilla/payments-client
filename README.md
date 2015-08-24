@@ -19,16 +19,40 @@ npm install --save mozilla-payments-client
 
 ## Development
 
-In order to develop the payments-client along side the payments-example site you can run:
+You can run a lightweight server to host the bundled payments client which is
+useful for testing as a script on another site
+(such as the [payments example site][example-site]).
+This serves a distribution bundle but also re-builds the bundle any time
+a file changes.
+
+Start the server like this:
 
 ```
 grunt serve
 ```
 
-Using [Charles Proxy](http://www.charlesproxy.com/) you can re-write to the payments-client src
-served by mozilla/payments-example with the built file containing changes you're working from.
+### Proxying with Charles
 
-To do this import the charles rewrite config (see the Charles directory).
+The [example site][example-site] uses a bundled version of the client library by
+default so one way to try out your edits on the example site is to re-route bundle
+requests to your locally served source code bundle using
+[Charles Proxy](http://www.charlesproxy.com/).
+
+To do this import the charles rewrite config (see the Charles directory) into
+the rewrite panel.
+
+### Manually swapping in a development bundle
+
+Without Charles, you can run this command each time you change some code to keep
+the [payments example site][example-site] up to date:
+
+````
+grunt build && cp dist/payments-client.js /path/to/payments-example/public/lib/js/
+````
+
+Natually, you'd
+[release and bump](https://github.com/mozilla/payments-example/#adding-deps)
+the example's client dependency to make your changes final.
 
 ## Tests
 
@@ -66,9 +90,9 @@ With all the changes you want already landed in master - here's the steps for cu
 
 * Bump the version in `package.json`.
 * Commit it to master
-* Go to the releases page on github [1] and hit "Draft a new release"
+* Go to the [releases page on github](https://github.com/mozilla/payments-client/releases) and hit "Draft a new release"
 * Use `<VERSION>` for both the tag and the release title. (The tag shouldn't already exist)
 * Add what's changed.
 * Hit "publish release" and the current rev of master will be tagged and the package will be pushed to npm automatically.
 
-[1] https://github.com/mozilla/payments-client/releases
+[example-site]: https://github.com/mozilla/payments-example/
