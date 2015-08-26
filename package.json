@@ -16,7 +16,7 @@
     "url": "git+https://github.com/mozilla/payments-client.git"
   },
   "author": "Mozilla Payments Team",
-  "license": "MPL 2.0",
+  "license": "MPL-2.0",
   "devDependencies": {
     "grunt": "0.4.5",
     "grunt-eslint": "16.0.0",
