@@ -2,8 +2,7 @@ language: node_js
 sudo: false
 node_js:
 - '0.10'
-before_install:
-  npm install -g npm@'>=2.13.5'
+before_install: npm install -g npm@'>=2.13.5'
 before_script:
 - npm rebuild
 - export DISPLAY=:99.0
@@ -20,7 +19,7 @@ deploy:
   email: payments-devs-automation+npm@mozilla.com
   skip_cleanup: true
   api_key:
-    secure: L1yD1CYpeF4likLatL38hFgKZcKcRj6ZXKTtpAHkKTEQBj1dw8/vVzzXpZhJl+zfuNILdeXDRQPJ1+11hMoJUbUnUu8zaTjmijBCxkbrX7P/j2J0RrPxdfHJsoblKxRIAcTif0O/do8PpPHM8RHzxu1bPFiCg+qrwOxFsgr7fJba1MUTUn88icKRh18LNL17y4vjpVHee2TltQ0285PP9LePEnhE/wslY75nG80zCuENF5k2Cyj4l/jhjXjPTv/bsG2PbfEw4I5+qPZVjJ4VcW+nfgJdgv3x0QEuu0yDs1Q+GKQeXizrkHSElSL3ArlCcSTWyfkjWy+SfIN3B47Eu7gi5+EQJIzSt0Wv1BV5CMeKPJKPi3ZkL3JnlCoo+Vra8s85BXU8zzIJrcH6t1UOAAlP0tiW734T2oTkioEgH/eX75aGfDP89sigqQ5L6IlzTtHAmEG5bBg2ICgnvYEgsFCiseSDrmsKkatxgwunnRW8hQ5ZOtJIaPZP25MdfxiOv74z1cEr8H2qhO6wmmtve90xdISBRfqIzOrLIpkxzRxgWu9US4iRy1z9heTQxe7PwTHXhQPu2q+7aKVLcfKEFyUJ14U6ElWtu6exradBAb6Hd0SfUxPIV4XaTaKIUscOH3rYDmJlFfkJRyJyBWcf2MrDZOwP+uxOpyXxSBhHUos=
+    secure: ABfJ/S0FzKgB2erhLqRPYJQFfBcZNe1dQTcyxQZWgo9E17Xv9cxS8Ca61y45TRcUsUcadUbBharErnx2WWjlSs5Q0H3QxF+taExIpya8BuzFZVIha/tNUu3eM98HoDbIyLPwJdSQUq9WV1LigWAUXZIv0rM4tqRj9/fhzf5PQg3Dvhf/k8swUoiS30zG4kGMFRxtQQ2RyaOXdhHYK1kquCWos4xbpIILerKMV8iDLKOqwakEf5j5uSWd1F15iRDmpjz2jnlgi6wBLFJDBxO7M5VBP/lS8U7EuTJ8sSB79NN5ck5mKzQDMKb04Km4GUZj0m5IbJbBY9Os9Z2qv49Y797sbrTEpWgjxIGy2XgThE7TVDv3lCwrGC9GVUYgseKDvl5C1Vd5mTlioWluBCpS7vNl94FaAzJxEPITNLDsd58ntIQrXkfU41tY4kBmgsep7Cj+FBoRGHVPRnc8x6Lzc7moVr2dSToTXLv8y2xnwXP4sp/N53amU4e3wRf1lzV/RnXEc4QgMEEl9ZK6f84oGPpqOLYE5u5buErbkk1KyBKxuDb5SKpuMVu4rPLt/vbGEV+mC8wckdOHK93H2OOFGPM8F8FzENesgW+CnJc1w5eWxJdwFxzgAo/hdB5sUSY80SyVdMpkx0MQlj66MrGNDt26Sk9Xtc7aPEf9llQkO9Y=
   on:
     tags: true
     repo: mozilla/payments-client
