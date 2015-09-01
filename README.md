@@ -38,8 +38,15 @@ default so one way to try out your edits on the example site is to re-route bund
 requests to your locally served source code bundle using
 [Charles Proxy](http://www.charlesproxy.com/).
 
-To do this import the charles rewrite config (see the Charles directory) into
-the rewrite panel.
+To do this you import the rewrite config in Charles from "tools -> rewrite"
+and then press import and point it at payments-client-rewrite.xml (which can be found
+in the 'charles' directory of this project).
+
+Next, [enable Charles proxy for the browser you're using](http://www.charlesproxy.com/documentation/getting-started/)
+(installing the firefox plugin first if you're using Firefox).
+
+Once it's up and running, the rewrite rule added above will rewrite any browser
+requests for the payment client to the one served by `grunt serve`.
 
 ### Manually swapping in a development bundle
 

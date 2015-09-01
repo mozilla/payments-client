@@ -24,7 +24,7 @@
         <matchValueRegex>false</matchValueRegex>
         <matchRequest>false</matchRequest>
         <matchResponse>false</matchResponse>
-        <newValue>http://localhost:8080/payments-client.js</newValue>
+        <newValue>http://localhost:8181/payments-client.js</newValue>
         <newHeaderRegex>false</newHeaderRegex>
         <newValueRegex>false</newValueRegex>
         <matchWholeValue>false</matchWholeValue>

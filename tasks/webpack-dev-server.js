@@ -5,7 +5,7 @@ var webpackConfig = require('../webpack.config.js');
 
 module.exports = {
   local: {
-    port: grunt.option('port') || 8080,
+    port: grunt.option('port') || 8181,
     webpack: webpackConfig,
     contentBase: 'dist',
     keepalive: true,
