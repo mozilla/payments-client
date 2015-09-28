@@ -18,6 +18,7 @@
   "author": "Mozilla Payments Team",
   "license": "MPL-2.0",
   "devDependencies": {
+    "chai": "3.3.0",
     "grunt": "0.4.5",
     "grunt-eslint": "16.0.0",
     "grunt-gh-pages": "0.10.0",
@@ -35,6 +36,7 @@
     "load-grunt-configs": "0.4.3",
     "load-grunt-tasks": "3.2.0",
     "lodash.defaults": "3.1.2",
+    "mocha": "2.3.3",
     "mozilla-payments-saucelabs-browsers": "0.0.1",
     "node-libs-browser": "0.5.0",
     "sinon": "1.14.1",
