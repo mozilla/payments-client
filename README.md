@@ -61,6 +61,10 @@ Natually, you'd
 [release and bump](https://github.com/mozilla/payments-example/#adding-deps)
 the example's client dependency to make your changes final.
 
+### node dependencies
+
+Dependencies are automatically kept up-to-date using [greenkeeper](http://greenkeeper.io/). You don't need to manually update dependencies in the `package.json`.
+
 ## Tests
 
 To run the tests locally run: `grunt test`. This will run the unit tests
