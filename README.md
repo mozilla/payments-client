@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/mozilla/payments-client.svg)](https://travis-ci.org/mozilla/payments-client)
+[![Build Status](https://travis-ci.org/mozilla/payments-client.svg?branch=master)](https://travis-ci.org/mozilla/payments-client)
 [![npm version](https://badge.fury.io/js/mozilla-payments-client.svg)](http://badge.fury.io/js/mozilla-payments-client)
 [![devDependency Status](https://david-dm.org/mozilla/payments-client/dev-status.svg)](https://david-dm.org/mozilla/payments-client#info=devDependencies)
 
