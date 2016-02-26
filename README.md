@@ -1,6 +1,9 @@
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 [![Build Status](https://travis-ci.org/mozilla/payments-client.svg?branch=master)](https://travis-ci.org/mozilla/payments-client)
 [![npm version](https://badge.fury.io/js/mozilla-payments-client.svg)](http://badge.fury.io/js/mozilla-payments-client)
 [![devDependency Status](https://david-dm.org/mozilla/payments-client/dev-status.svg)](https://david-dm.org/mozilla/payments-client#info=devDependencies)
+
+*Note: This project is no longer maintained.*
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/moz-payments-client.svg)](https://saucelabs.com/u/moz-payments-client)
 
