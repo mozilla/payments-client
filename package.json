@@ -39,7 +39,7 @@
     "mocha": "2.4.5",
     "mozilla-payments-saucelabs-browsers": "0.0.1",
     "node-libs-browser": "1.0.0",
-    "sinon": "1.17.3",
+    "sinon": "1.17.5",
     "webpack": "1.12.14",
     "webpack-dev-server": "1.14.1"
   },
